@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ServicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,11 @@ Route::get('/categorias', [CategoriaController::class, 'index'])->name('lista_ca
 Route::post('/categoria/crear', [CategoriaController::class, 'store'])->name('crear_categoria');
 Route::delete('/categoria/eliminar/{id}', [CategoriaController::class, 'destroy'])->name('eliminar_categoria');
 Route::put('/categoria/editar/{id}', [CategoriaController::class, 'update']);
+
+//SERVICIOS
+
+Route::get('/servicios', [ServicioController::class, 'index'])->name('lista_servicios');
+Route::post('/servicio/crear', [ServicioController::class, 'crear_servicio'])->name('crear_servicio');
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation

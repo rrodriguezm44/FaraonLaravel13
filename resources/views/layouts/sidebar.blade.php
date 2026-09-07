@@ -50,6 +50,14 @@
                         <span>Categorías</span>
                     </a>
                 </li>
+
+                <li>
+                    <a href="{{ route('lista_servicios') }}" class="waves-effect">
+                       <i class="uil uil-briefcase-alt"></i>
+                        <span>Servicios</span>
+                    </a>
+                </li>
+
                 <li class="menu-title">@lang('translation.Apps')</li>
 
                 <li>

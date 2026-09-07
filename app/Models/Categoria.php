@@ -10,4 +10,9 @@ class Categoria extends Model
         'nombre',
         'descripcion'
     ];
+
+    public function servicios()
+    {
+        return $this->hasMany(Servicio::class);
+    }
 }

@@ -23,7 +23,7 @@
 
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
-                                <h5 class="text-primary">¡Bienvenido Zysoft Carlos!</h5>
+                                <h5 class="text-primary">¡Bienvenido Faraon SRL</h5>
                                 <p class="text-muted">Inicia sesión para continuar en Zysoft Orfa.</p>
                             </div>
                             <div class="p-2 mt-4">
