@@ -41,6 +41,13 @@
                     </a>
                 </li>
 
+                <li class="menu-title">Administracion</li>
+                 <li>
+                    <a href="{{ route('listar_empleado') }}" class="waves-effect">
+                       <i class="uil uil-user"></i>
+                        <span>Empleados</span>
+                    </a>
+                </li>
 
 
                 <li class="menu-title">Operaciones</li>
@@ -58,59 +65,7 @@
                     </a>
                 </li>
 
-                <li class="menu-title">@lang('translation.Apps')</li>
-
-                <li>
-                    <a href="calendar" class="waves-effect">
-                        <i class="uil-calender"></i>
-                        <span>@lang('translation.Calendar')</span>
-                    </a>
-                </li>
-
-
-
-                <li>
-                    <a href="chat" class=" waves-effect">
-                        <i class="uil-comments-alt"></i>
-                        <span>@lang('translation.Chat')</span>
-                    </a>
-                </li>
-
-
-
-
-                <li class="menu-title">@lang('translation.Pages')</li>
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-user-circle"></i>
-                        <span>@lang('translation.Authentication')</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="auth-login">@lang('translation.Login')</a></li>
-                        <li><a href="auth-register">@lang('translation.Register')</a></li>
-                        <li><a href="auth-recoverpw">@lang('translation.Recover_Password')</a></li>
-                        <li><a href="auth-lock-screen">@lang('translation.Lock_Screen')</a></li>
-                    </ul>
-                </li>
-
-
-
-                <li class="menu-title">@lang('translation.Components')</li>
-
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-list-ul"></i>
-                        <span>@lang('translation.Tables')</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="tables-basic">@lang('translation.Bootstrap_Basic')</a></li>
-                        <li><a href="tables-datatable">@lang('translation.Datatables')</a></li>
-                        <li><a href="tables-responsive">@lang('translation.Responsive')</a></li>
-                        <li><a href="tables-editable">@lang('translation.Editable')</a></li>
-                    </ul>
-                </li>
+               
             </ul>
         </div>
         <!-- Sidebar -->

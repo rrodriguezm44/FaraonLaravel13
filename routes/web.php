@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ServicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,15 @@ Route::put('/categoria/editar/{id}', [CategoriaController::class, 'update']);
 
 Route::get('/servicios', [ServicioController::class, 'index'])->name('lista_servicios');
 Route::post('/servicio/crear', [ServicioController::class, 'crear_servicio'])->name('crear_servicio');
+Route::delete('/servicio/eliminar/{id}', [ServicioController::class, 'eliminar'])->name('eliminar_servicio');
+
+///EMPLEADOS
+
+Route::controller(EmpleadoController::class)->middleware('auth')->group(function(){
+    Route::get('/empleados', 'index')->name('listar_empleado');
+    Route::post('/empleado/crear', 'store')->name('crear_empleado');
+    Route::delete('/empleado/eliminar/{id}', 'destroy')->name('eliminar_empleado');
+});
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation

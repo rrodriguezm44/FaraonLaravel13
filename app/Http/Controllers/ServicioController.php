@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ServicioController extends Controller
 {
@@ -45,6 +46,23 @@ class ServicioController extends Controller
         return redirect()->back()->with('success', 'Servicio creado exitosamente.');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear el servicio: ' . $e->getMessage());   
+        }
+    }
+
+    public function eliminar($id)
+    {
+        try {
+            $servicio = Servicio::findOrFail($id);
+
+            if($servicio->foto && Storage::disk('public')->exists($servicio->foto)){
+                Storage::disk('public')->delete($servicio->foto);
+            }
+
+            $servicio->delete();
+
+            return redirect()->back()->with('success', 'Servicio eliminado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar el servicio: ' . $e->getMessage());
         }
     }
 }
