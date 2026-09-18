@@ -65,7 +65,26 @@
                     </a>
                 </li>
 
-               
+               <li class="menu-title text-danger">Configuración</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="uil uil-shield-check text-danger"></i>
+                        <span>Seguridad</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="">
+                                <i class="uil uil-users-alt me-1"></i> Roles
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permisos.index') }}">
+                                <i class="uil uil-lock-access me-1"></i> Permisos
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

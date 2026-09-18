@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ServicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,9 @@ Route::controller(EmpleadoController::class)->middleware('auth')->group(function
     Route::post('/empleado/crear', 'store')->name('crear_empleado');
     Route::delete('/empleado/eliminar/{id}', 'destroy')->name('eliminar_empleado');
 });
+
+Route::resource('/permisos', PermisoController::class)->names('permisos');
+//index, create, store, show, edit, update, destroy
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation
