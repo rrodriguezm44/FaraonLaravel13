@@ -45,4 +45,9 @@ class User extends Authenticatable
     public function empleado(){
         return $this->hasOne(Empleado::class);
     }
+
+     public function clientes()
+    {
+        return $this->hasOne(Cliente::class);
+    }
 }

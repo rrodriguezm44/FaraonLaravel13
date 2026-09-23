@@ -57,7 +57,6 @@
                                                 <i class="uil uil-trash-alt"></i>
                                             </button>
                                             <button class="btn btn-outline-success btn-sm btn-editar-permiso"
-                                                data-bs-toggle="modal" data-bs-target="#modalEditar"
                                                 data-id="{{ $permiso->id }}" data-name="{{ $permiso->name }}">
                                                 <i class="uil uil-edit"></i>
                                             </button>
@@ -183,7 +182,11 @@
                     document.getElementById('tablaPermisos').insertAdjacentHTML('beforeend', nuevaFila);
                     document.getElementById('crear_nombre').value = '';
 
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalCrear')).hide();
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalCrear'));
+                    modal.hide();
+
+                    agregarEventosEliminar();
+                    agregarEventosEditar();
 
                     Swal.fire('Creado', 'Permiso Creado', 'success');
                 }
@@ -236,7 +239,81 @@
                     Swal.fire('!Eliminado', 'Permiso eliminado correctamente', 'success');
                 }
             }
+
+            //editar permisos
+            let currectPermisoId = null;
+
+            function agregarEventosEditar() {
+                const botonesEditar = document.querySelectorAll('.btn-editar-permiso');
+                botonesEditar.forEach((btn) => {
+                    btn.removeEventListener('click', abrirModalEditar);
+                    btn.addEventListener('click', abrirModalEditar);
+                })
+            }
+
+            function abrirModalEditar(event) {
+                const btn = event.currentTarget;
+                currentPermisoId = btn.getAttribute('data-id');
+                const nombreActual  = btn.getAttribute('data-name');
+
+                document.getElementById('edit_nombre').value = nombreActual;
+                document.getElementById('edit_id').value = currentPermisoId;
+
+                const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'));
+                modalEditar.show();
+            }
+
+            const btnGuardarEdicion = document.getElementById('btnGuardarEdicion');
+            if(btnGuardarEdicion) {
+                btnGuardarEdicion.addEventListener('click', async function() {
+                    const nombreNuevo = document.getElementById('edit_nombre').value.trim();
+                    const id = document.getElementById('edit_id').value;
+
+                    if (!nombreNuevo) {
+                        Swal.fire('Error','El nombre es requerido', 'error');
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Actualizando....',
+                        didOpen: () => Swal.showLoading(),
+                    });
+
+                   try {
+                        const response = await axios.put(`/permisos/${currentPermisoId}`, {
+                            name: nombreNuevo,
+                            _token: '{{ csrf_token() }}'
+                        });
+
+                        if (response.data.success) {
+                            const nombreCelda = document.querySelector(`.nombre-permiso-${currentPermisoId}`);
+                            if (nombreCelda) {
+                                nombreCelda.textContent = nombreNuevo;
+                            }
+
+                            const botonEditar = document.querySelector(`.btn-editar-permiso[data-id="${currentPermisoId}"]`);
+
+                            if (botonEditar) {
+                                botonEditar.setAttribute('data-name', nombreNuevo);
+                            }
+
+                            const modalEditar = bootstrap.Modal.getInstance(document.getElementById('modalEditar'));
+                            modalEditar.hide();
+
+                            Swal.fire('Actualizado', 'Permiso actualizado correctamente', 'success');
+                        }
+                    } catch (error) {
+                        let mensjaeError = 'Ocurrió un error al actualizar el permiso';
+                        if (error.response && error.response.data && error.response.data.message) {
+                            mensjaeError = error.response.data.message;
+                        }
+                        Swal.fire('Error', mensjaeError, 'error');
+                    }
+
+                });
+            }
             agregarEventosEliminar();
+            agregarEventosEditar();
         })
     </script>
 @endsection

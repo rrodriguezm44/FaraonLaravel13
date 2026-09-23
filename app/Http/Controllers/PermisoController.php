@@ -62,4 +62,30 @@ class PermisoController extends Controller
             ]);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255|unique:permissions,name,' . $id,
+            ]);
+
+            $permiso = Permission::findOrFail($id);
+            $permiso->name = $request->name;
+            $permiso->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Permiso actualizado exitosamente.',
+                'permiso' => $permiso,
+            ]);
+
+        } catch (\Exception $e) {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al actualizar el permiso: ' . $e->getMessage(),
+            ]);
+        }
+    }
 }

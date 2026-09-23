@@ -42,10 +42,17 @@
                 </li>
 
                 <li class="menu-title">Administracion</li>
-                 <li>
+                <li>
                     <a href="{{ route('listar_empleado') }}" class="waves-effect">
                        <i class="uil uil-user"></i>
                         <span>Empleados</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{route('cliente.index')}}" class="waves-effect">
+                       <i class="uil uil-users-alt"></i>
+                        <span>Clientes</span>
                     </a>
                 </li>
 
@@ -74,7 +81,7 @@
                     </a>
                     <ul class="sub-menu">
                         <li>
-                            <a href="">
+                            <a href="{{ route('roles.index') }}">
                                 <i class="uil uil-users-alt me-1"></i> Roles
                             </a>
                         </li>

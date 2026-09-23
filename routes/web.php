@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PermisoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,8 +53,22 @@ Route::controller(EmpleadoController::class)->middleware('auth')->group(function
     Route::delete('/empleado/eliminar/{id}', 'destroy')->name('eliminar_empleado');
 });
 
+//clientes
+Route::controller(ClienteController::class)->prefix('cliente')->middleware('auth')->group(function(){
+    Route::get('/', 'index')->name('cliente.index');
+    Route::post('/store', 'store')->name('cliente.store');
+    Route::put('/editar/{id}', 'update');
+    Route::delete('/eliminar/{id}', 'destroy');
+});
+
+
+//PERMISOS
 Route::resource('/permisos', PermisoController::class)->names('permisos');
 //index, create, store, show, edit, update, destroy
+
+
+//ROLES
+Route::resource('roles', RoleController::class)->names('roles');
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation
