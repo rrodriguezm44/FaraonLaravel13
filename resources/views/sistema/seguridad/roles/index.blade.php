@@ -1,4 +1,4 @@
-@extends('layouts.master')
+git @extends('layouts.master')
 @section('title')
     @lang('translation.Datatables')
 @endsection
@@ -33,40 +33,33 @@
                             Crear Rol
                         </button>
                     </div>
-                    <table id="datatable" class="table table-bordered dt-responsive nowrap"
-                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="width: 100%;">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Permisos</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @foreach ($roles as $rol)
-                                <tr>
-                                    <td>{{ $rol->name }}</td>
+                        <tbody id="tablaPermisos">
+                            @foreach ($permisos as $permiso)
+                                <tr id="fila-{{ $permiso->id }}">
+                                    <td>{{ $permiso->id }}</td>
+                                    <td class="nombre-permiso-{{ $permiso->id }}">{{ $permiso->name }}</td>
                                     <td>
-                                        @if ($rol->permissions->count())
-                                            <div class="d-flex flex-wrap gap-1">
-                                                @foreach ($rol->permissions as $permiso)
-                                                    <span class="badge bg-soft-primary">{{ $permiso->name }}</span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-muted fst-italic">Sin permisos</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#modalEditar">
-                                            <i class="uil uil-edit"></i>
-                                            Editar
-                                        </button>
+                                        <div class="d-flex gap-3">
+                                            <button class="btn btn-outline-danger btn-sm btn-eliminar-permiso"
+                                                data-id="{{ $permiso->id }}">
+                                                <i class="uil uil-trash-alt"></i>
+                                            </button>
+                                            <button class="btn btn-outline-success btn-sm btn-editar-permiso"
+                                                data-id="{{ $permiso->id }}" data-name="{{ $permiso->name }}">
+                                                <i class="uil uil-edit"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
 
@@ -86,7 +79,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
 
-                <form action="{{route('roles.store')}}" method="POST">
+                <form action="{{ route('roles.store') }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-4">
@@ -102,7 +95,7 @@
                                     <div class="col-md-6">
                                         <div class="form-check form-check-primary">
                                             <input class="form-check-input" type="checkbox" id="crear_p{{ $permiso->id }}"
-                                                name="permissions[]" value="{{$permiso->name}}">
+                                                name="permissions[]" value="{{ $permiso->name }}">
                                             <label class="form-check-label">{{ $permiso->name }}</label>
                                         </div>
                                     </div>
@@ -198,7 +191,7 @@
     </div>
 
 
- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))

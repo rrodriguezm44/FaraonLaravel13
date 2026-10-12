@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
-use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\UserController;
+//use Illuminate\Database\Schema\IndexDefinition;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +71,14 @@ Route::resource('/permisos', PermisoController::class)->names('permisos');
 
 //ROLES
 Route::resource('roles', RoleController::class)->names('roles');
+
+//USUARIOS
+Route::controller(UserController::class)->middleware('auth')->group(function(){
+    Route::get('/usuarios', 'index')->name('usuarios.index');
+    Route::post('/usuarios/crear', 'crear')->name('usuarios.store');
+    Route::put('/usuarios/actualizar/{id}', 'actualizar');
+    Route::delete('/servicio/eliminar/{id}', 'eliminar');
+});
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation

@@ -2,8 +2,8 @@
 <div class="vertical-menu">
 
     <!-- LOGO -->
-     <div class="navbar-brand-box">
-        <a href="{{url('index')}}" class="logo logo-dark">
+    <div class="navbar-brand-box">
+        <a href="{{ url('index') }}" class="logo logo-dark">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/rubik.png') }}" alt="" height="40">
             </span>
@@ -12,7 +12,7 @@
             </span>
         </a>
 
-        <a href="{{url('index')}}" class="logo logo-light">
+        <a href="{{ url('index') }}" class="logo logo-light">
             <span class="logo-sm">
                 <img src="{{ URL::asset('/assets/images/rubik.png') }}" alt="" height="40">
             </span>
@@ -35,44 +35,52 @@
                 <li class="menu-title">@lang('translation.Menu')</li>
 
                 <li>
-                    <a href="{{url('index')}}">
+                    <a href="{{ url('index') }}">
                         <i class="uil-home-alt"></i><span class="badge rounded-pill bg-primary float-end">01</span>
                         <span>@lang('translation.Dashboard')</span>
                     </a>
                 </li>
 
                 <li class="menu-title">Administracion</li>
+
+                <li>
+                    <a href="{{ route('usuarios.index') }}" class="waves-effect">
+                        <i class="uil uil-user-md"></i>
+                        <span>Usuarios</span>
+                    </a>
+                </li>
+
                 <li>
                     <a href="{{ route('listar_empleado') }}" class="waves-effect">
-                       <i class="uil uil-user"></i>
+                        <i class="uil uil-user"></i>
                         <span>Empleados</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{route('cliente.index')}}" class="waves-effect">
-                       <i class="uil uil-users-alt"></i>
+                    <a href="{{ route('cliente.index') }}" class="waves-effect">
+                        <i class="uil uil-users-alt"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
 
 
                 <li class="menu-title">Operaciones</li>
-                 <li>
+                <li>
                     <a href="{{ route('lista_categoria') }}" class="waves-effect">
-                       <i class="uil uil-cog"></i>
+                        <i class="uil uil-cog"></i>
                         <span>Categorías</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('lista_servicios') }}" class="waves-effect">
-                       <i class="uil uil-briefcase-alt"></i>
+                        <i class="uil uil-briefcase-alt"></i>
                         <span>Servicios</span>
                     </a>
                 </li>
 
-               <li class="menu-title text-danger">Configuración</li>
+                <li class="menu-title text-danger">Configuración</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
