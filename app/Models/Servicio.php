@@ -20,4 +20,9 @@ class Servicio extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }

@@ -20,4 +20,9 @@ class Empleado extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }

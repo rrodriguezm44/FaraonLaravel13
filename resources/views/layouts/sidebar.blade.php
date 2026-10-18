@@ -80,6 +80,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('asignacion.index') }}" class="waves-effect">
+                        <i class="uil uil-link-alt"></i>
+                        <span>Asignaciones</span>
+                    </a>
+                </li>
+
                 <li class="menu-title text-danger">Configuración</li>
 
                 <li>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsignacionController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EmpleadoController;
@@ -79,6 +80,12 @@ Route::controller(UserController::class)->middleware('auth')->group(function(){
     Route::put('/usuarios/actualizar/{id}', 'actualizar');
     Route::delete('/servicio/eliminar/{id}', 'eliminar');
 });
+
+//ASIGNACIONES
+Route::get('/asignaciones',[AsignacionController::class,'index'])->name('asignacion.index');
+Route::get('/asignaciones/empleado/{Id}', [AsignacionController::class, 'datos_empleados'])->name('asignacion.datos');
+Route::post('/asignaciones/empleado/{id}/servicios', [AsignacionController::class, 'guardar_servicios']);
+
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation
