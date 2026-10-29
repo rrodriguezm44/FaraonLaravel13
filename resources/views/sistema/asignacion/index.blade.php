@@ -179,15 +179,16 @@
 
                             const label = checkbox.closest('.servicio-label');
                             if (checkbox.checked) {
-                                label.classList.add('border-primary', 'bg-primary', 'bg-opacity-10','text-white');
+                                label.classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'text-white');
                             } else {
-                                label.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10','text-white');
+                                label.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10',
+                                    'text-white');
                             }
                         })
                     })
                     .catch(error => {
-                            document.getElementById('skeletonLoader').style.display = 'none';
-                            Swal.fire('Error', error.response?.data?.error || 'error al cargar los servicios', 'error');
+                        document.getElementById('skeletonLoader').style.display = 'none';
+                        Swal.fire('Error', error.response?.data?.error || 'error al cargar los servicios', 'error');
                     });
             }
 
@@ -195,14 +196,56 @@
                 checkbox.addEventListener('change', function() {
                     const label = this.closest('.servicio-label');
                     if (this.checked) {
-                        label.classList.add('border-primary', 'bg-primary', 'bg-opacity-10','text-white');
+                        label.classList.add('border-primary', 'bg-primary', 'bg-opacity-10', 'text-white');
                     } else {
-                        label.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10','text-white');
+                        label.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10', 'text-white');
                     }
                 })
             });
 
-            document.getElementById('btnGuardarServicios').addEventListener('click', function() {
+            // document.getElementById('btnGuardarServicios').addEventListener('click', function() {
+            //     if (!empleadoActivoId) {
+            //         Swal.fire('Advertencia', 'Seleccione un empleado primero', 'warning');
+            //         return;
+            //     }
+
+            //     const serviciosAsignados = [];
+            //     document.querySelectorAll('.servicio-check:checked').forEach(checkbox => {
+            //             serviciosAsignados.push(parseInt(checkbox.value));
+            //     });
+
+            //     const fd = new FormData();
+            //     serviciosAsignados.forEach(id => 
+            //         fd.append('servicios[]', id));
+            //         fd.append('_token', '{{ csrf_token() }}');
+
+            //         this.dataset = true;
+            //         this.innerHTML = '<span class="spinner-border spinner-border-sm me-1">Guardando......</span>'
+
+
+            //     axios.post(`/asignaciones/empleado/${empleadoActivoId}/servicios`, fd)
+            //         .then(({data}) => {
+            //             Swal.fire({
+            //                 icon: 'success',
+            //                 title: 'Éxito',
+            //                 text: data.message || 'Servicios asignados correctamente',
+            //                 showConfirmButton: false,
+            //             });
+            //         })
+            //         .catch(error => {
+            //             Swal.fire({
+            //                 icon: 'error',
+            //                 title: 'Error',
+            //                 text: error.response?.data?.message || 'Error al asignar servicios',
+            //                 showConfirmButton: false,
+            //             })
+            //         })
+            // });
+
+            const btnGuardar = document.getElementById('btnGuardarServicios');
+            const btnGuardarHTMLOriginal = btnGuardar.innerHTML;
+
+            btnGuardar.addEventListener('click', function() {
                 if (!empleadoActivoId) {
                     Swal.fire('Advertencia', 'Seleccione un empleado primero', 'warning');
                     return;
@@ -210,25 +253,28 @@
 
                 const serviciosAsignados = [];
                 document.querySelectorAll('.servicio-check:checked').forEach(checkbox => {
-                        serviciosAsignados.push(parseInt(checkbox.value));
+                    serviciosAsignados.push(parseInt(checkbox.value));
                 });
 
                 const fd = new FormData();
-                serviciosAsignados.forEach(id => 
-                    fd.append('servicios[]', id));
-                    fd.append('_token', '{{ csrf_token() }}');
+                serviciosAsignados.forEach(id => fd.append('servicios[]', id));
+                fd.append('_token', '{{ csrf_token() }}');
 
-                    this.dataset = true;
-                    this.innerHTML = '<span class="spinner-border spinner-border-sm me-1">Guardando......</span>'
-
+                // Estado de carga correcto
+                btnGuardar.disabled = true;
+                btnGuardar.innerHTML =
+                    '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Guardando...';
 
                 axios.post(`/asignaciones/empleado/${empleadoActivoId}/servicios`, fd)
-                    .then(({data}) => {
+                    .then(({
+                        data
+                    }) => {
                         Swal.fire({
                             icon: 'success',
                             title: 'Éxito',
                             text: data.message || 'Servicios asignados correctamente',
                             showConfirmButton: false,
+                            timer: 1500
                         });
                     })
                     .catch(error => {
@@ -236,9 +282,13 @@
                             icon: 'error',
                             title: 'Error',
                             text: error.response?.data?.message || 'Error al asignar servicios',
-                            showConfirmButton: false,
-                        })
+                        });
                     })
+                    .finally(() => {
+                        // Siempre restaurar el botón
+                        btnGuardar.disabled = false;
+                        btnGuardar.innerHTML = btnGuardarHTMLOriginal;
+                    });
             });
         </script>
 

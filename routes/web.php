@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 //use Illuminate\Database\Schema\IndexDefinition;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,8 @@ Route::get('/asignaciones',[AsignacionController::class,'index'])->name('asignac
 Route::get('/asignaciones/empleado/{Id}', [AsignacionController::class, 'datos_empleados'])->name('asignacion.datos');
 Route::post('/asignaciones/empleado/{id}/servicios', [AsignacionController::class, 'guardar_servicios']);
 
+Route::get('/tasks', [TaskController::class, 'index']);
+Route::post('/tasks', [TaskController::class, 'store']);
 
 Route::get('{any}', [App\Http\Controllers\HomeController::class, 'index']);
 //Language Translation
